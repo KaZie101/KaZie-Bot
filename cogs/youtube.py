@@ -51,34 +51,34 @@ class Youtube(commands.Cog):
         # self.dislikes = data.get('dislike_count')
         # self.stream_url = data.get('url')
 
-    @discord.command()
-    @discord.slash_command(name='play',description='play music')
-    async def play(self,ctx,url):
-        # Check if the command was issued in a voice channel
-        if ctx.author.voice is None or ctx.author.voice.channel is None:
-            await ctx.send("You need to be in a voice channel to use this command!")
-            return
+    # @discord.command()
+    # @discord.slash_command(name='play',description='play music')
+    # async def play(self,ctx,url):
+    #     # Check if the command was issued in a voice channel
+    #     if ctx.author.voice is None or ctx.author.voice.channel is None:
+    #         await ctx.send("You need to be in a voice channel to use this command!")
+    #         return
 
-        # Get the voice channel of the user who issued the command
-        voice_channel = ctx.author.voice.channel
-        voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
-        await ctx.respond("playing song")
+    #     # Get the voice channel of the user who issued the command
+    #     voice_channel = ctx.author.voice.channel
+    #     voice_client = discord.utils.get(self.bot.voice_clients, guild=ctx.guild)
+    #     await ctx.respond("playing song")
 
-        try:
-            # Connect to the voice channel        
-            if not voice_client:
-                voice_client = await voice_channel.connect()
-            if ctx.voice_client is not None:
-                await ctx.voice_client.move_to(voice_channel) 
-            info = self.ytdl.extract_info(url,download=True)
+    #     try:
+    #         # Connect to the voice channel        
+    #         if not voice_client:
+    #             voice_client = await voice_channel.connect()
+    #         if ctx.voice_client is not None:
+    #             await ctx.voice_client.move_to(voice_channel) 
+    #         info = self.ytdl.extract_info(url,download=True)
 
-            for song in info:
-                voice_client.play(discord.FFmpegPCMAudio(song,executable="ffmpeg"))
+    #         for song in info:
+    #             voice_client.play(discord.FFmpegPCMAudio(song,executable="ffmpeg"))
 
 
-        except Exception as e:
-            print(e)
-            # await ctx.send("Error connecting to voice channel!")
+    #     except Exception as e:
+    #         print(e)
+    #         # await ctx.send("Error connecting to voice channel!")
 
 def setup(bot): 
     bot.add_cog(Youtube(bot)) 
