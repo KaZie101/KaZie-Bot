@@ -54,6 +54,13 @@ class Jeff(commands.Cog):
 
             await asyncio.sleep(2)
 
+            exhale = os.path.join(exhales_dir,random.choice(os.listdir(exhales_dir)))
+            voice_client.play(discord.FFmpegPCMAudio(exhale,executable="ffmpeg"))
+            while voice_client.is_playing():
+                await asyncio.sleep(1)
+
+            await asyncio.sleep(2)
+
             # await asyncio.sleep(random.randrange(2,6))
             bong_rip = os.path.join(bong_rip_dir,random.choice(os.listdir(bong_rip_dir)))
             voice_client.play(discord.FFmpegPCMAudio(bong_rip,executable="ffmpeg"))
